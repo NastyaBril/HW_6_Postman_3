@@ -1,0 +1,441 @@
+{
+	"info": {
+		"_postman_id": "3021f01c-5af4-4246-aa83-88c65f40a9fe",
+		"name": "group_25_3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var resp_token = jsonData.token;\r",
+							"console.log(\"TOKEN = \" +resp_token);\r",
+							"\r",
+							"pm.environment.set(\"token\", resp_token);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "login",
+							"value": "Anastasiya",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1996n",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseJson = pm.response.json();\r",
+							"console.log(responseJson);\r",
+							"\r",
+							"var requestJson = request.data;\r",
+							"console.log(request);\r",
+							"\r",
+							"pm.test(\"Your test salary*2\", function () {\r",
+							"    pm.expect(+responseJson.person.qa_salary_after_6_months).to.eql(+requestJson.salary*2);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test salary*2.9\", function () {\r",
+							"    pm.expect(+responseJson.person.qa_salary_after_12_months).to.eql(+requestJson.salary*2.9);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test salary*1.5\", function () {\r",
+							"    pm.expect(+responseJson.person.qa_salary_after_1_5_months).to.eql(+requestJson.salary*4);\r",
+							"});\r",
+							"\r",
+							"console.log(\"person.u_salary_1_5_year = \" + requestJson.salary*4);\r",
+							"\r",
+							"pm.test(\"Your test u_salary_1_5_year\", function () {\r",
+							"    pm.expect(+responseJson.person.u_name.u_salary_1_5_year).to.eql(requestJson.start_qa_salary*4);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"u_salary_1_5_year\", responseJson.start_qa_salary*4);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"age\":25,\r\n    \"salary\":20000,\r\n    \"name\":\"Nastya\",\r\n    \"auth_token\":\"/s34lfgbj/Anastasiya/jjd909/84534kjkWpqc31341996n373614evny\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user_info",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new_data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseJson = pm.response.json();\r",
+							"console.log(responseJson);\r",
+							"\r",
+							"var requestJson = request.data;\r",
+							"console.log(request);\r",
+							"\r",
+							"pm.test(\"Your test salary*2\", function () {\r",
+							"    pm.expect(+responseJson.salary [1]).to.eql(+requestJson.salary*2);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test salary*3\", function () {\r",
+							"    pm.expect(+responseJson.salary [2]).to.eql(+requestJson.salary*3);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"var salary = +jsonData.salary\r",
+							"\r",
+							"console.log(\"jsonData.salary = \" + jsonData.salary + ' ' + typeof(jsonData.salary))\r",
+							"\r",
+							"if (responseJson.salary[2] > responseJson.salary[1]) { \r",
+							"console.log('true');} \r",
+							"else  {console.log('false')};\r",
+							"\r",
+							"if (responseJson.salary[2] > responseJson.salary[0]) { \r",
+							"console.log('true');} \r",
+							"else  {console.log('false')};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "49",
+							"type": "default"
+						},
+						{
+							"key": "salary",
+							"value": "5000",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "Galina",
+							"type": "default"
+						},
+						{
+							"key": "auth_token",
+							"value": "/s34lfgbj/Anastasiya/jjd909/84534kjkWpqc31341996n373614evny",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/new_data",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"new_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test_pet_info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseJson = pm.response.json();\r",
+							"console.log(responseJson);\r",
+							"\r",
+							"var requestJson = request.data;\r",
+							"console.log(request);\r",
+							"\r",
+							"pm.test(\"Your test weight*0.012\", function () {\r",
+							"    pm.expect(+responseJson.daily_food).to.eql(+requestJson.weight*0.012);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test weight*2.5\", function () {\r",
+							"    pm.expect(+responseJson.daily_sleep).to.eql(+requestJson.weight*2.5);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "52",
+							"type": "default"
+						},
+						{
+							"key": "weight",
+							"value": "65",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "Valera",
+							"type": "default"
+						},
+						{
+							"key": "auth_token",
+							"value": "/s34lfgbj/Anastasiya/jjd909/84534kjkWpqc31341996n373614evny",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/test_pet_info",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"test_pet_info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_test_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseJson = pm.response.json();\r",
+							"console.log(responseJson);\r",
+							"\r",
+							"var requestJson = request.data;\r",
+							"console.log(request);\r",
+							"\r",
+							"pm.test(\"Your test age\", function () {\r",
+							"    pm.expect(+responseJson.age).to.eql(+ requestJson.age);\r",
+							"});\r",
+							"    console.log(\"age = \" + requestJson.age);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.environment.get('name')\r",
+							"\r",
+							"pm.test(\"check name equal variable name\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get('name'));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "29",
+							"type": "default"
+						},
+						{
+							"key": "salary",
+							"value": "3000",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "Nastya",
+							"type": "default"
+						},
+						{
+							"key": "auth_token",
+							"value": "/s34lfgbj/Anastasiya/jjd909/84534kjkWpqc31341996n373614evny",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/get_test_user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"get_test_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "currency",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"console.log(responseJson);\r",
+							"\r",
+							"var cur = +responseJson.length; \r",
+							"console.log(cur); \r",
+							"var curr_code = responseJson[Math.floor(Math.random()*cur)]; \r",
+							"console.log(curr_code); \r",
+							"\r",
+							"pm.environment.set(\"curr_code\", curr_code.Cur_ID)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "auth_token",
+							"value": "/s34lfgbj/Anastasiya/jjd909/84534kjkWpqc31341996n373614evny",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/currency",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"currency"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "curr_byn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "auth_token",
+							"value": "/s34lfgbj/Anastasiya/jjd909/84534kjkWpqc31341996n373614evny",
+							"type": "default"
+						},
+						{
+							"key": "curr_code",
+							"value": "{{curr_code}}",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/curr_byn",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"curr_byn"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
